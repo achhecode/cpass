@@ -7,20 +7,12 @@ import {
   Card,
   CardAction,
   CardContent,
-//   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
-import { EventHandler } from 'react';
-
-function showAlert(){
-    return alert("Showing alert");
-}
-
 
 
 export default function Login(){
@@ -34,30 +26,13 @@ export default function Login(){
     const [passwordError, setPasswordError] = useState<string[]>([]);
 
     const validateUsername = (value: string) => {
-        // const regex = /^[a-z]+$/;
         const regex = /^[a-z][a-z0-9_]*$/;
-        // if(value.length < 5){
-        //     setUsernameError("Username is too short");
-        // }
         if (value.length < 5 || !regex.test(value)) {
             setUsernameError("Username is invalid");
         } else {
             setUsernameError('');
         }
     };
-
-    // const validatePassword = (value: string) => {
-    //     const minLength = value.length >= 10;
-    //     const hasUppercase = /[A-Z]/.test(value);
-    //     const hasLowercase = /[a-z]/.test(value);
-    //     const hasSymbol = /[^a-zA-Z0-9]/.test(value);
-
-    //     if (!minLength || !hasUppercase || !hasLowercase || !hasSymbol) {
-    //     setPasswordError("Password must be at least 10 characters and include uppercase, lowercase, and a symbol.");
-    //     } else {
-    //     setPasswordError('');
-    //     }
-    // };
 
     const validatePassword = (value: string) => {
         const errors: string[] = [];
@@ -75,11 +50,6 @@ export default function Login(){
             errors.push("Must be at least 10 characters");
         }
 
-        // if (errors.length > 0) {
-        //     setPasswordError(errors.join(". ") + "\n.");
-        // } else {
-        //     setPasswordError('');
-        // }
         setPasswordError(errors);
     };
 
@@ -103,8 +73,7 @@ export default function Login(){
         validatePassword(password);
 
         if (!usernameError && !passwordError) {
-        console.log("Logging in with:", { username, password });
-        // Send to API here
+            console.log("Logging in with:", { username, password });
         }
     };
 
@@ -133,7 +102,7 @@ export default function Login(){
                 <Input
                   id="username"
                   type="text"
-                  placeholder="lowercase only"
+                  placeholder=""
                   value={username}
                   onChange={handleUsernameChange}
                   required
@@ -146,7 +115,7 @@ export default function Login(){
                 <Input
                   id="password"
                   type="password"
-                  placeholder="********"
+                  placeholder=""
                   value={password}
                   onChange={handlePasswordChange}
                   required
