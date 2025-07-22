@@ -31,7 +31,7 @@ export default function Login(){
     const [password, setPassword] = useState('');
 
     const [usernameError, setUsernameError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    const [passwordError, setPasswordError] = useState<string[]>([]);
 
     const validateUsername = (value: string) => {
         // const regex = /^[a-z]+$/;
@@ -75,11 +75,12 @@ export default function Login(){
             errors.push("Must be at least 10 characters");
         }
 
-        if (errors.length > 0) {
-            setPasswordError(errors.join(". ") + "\n.");
-        } else {
-            setPasswordError('');
-        }
+        // if (errors.length > 0) {
+        //     setPasswordError(errors.join(". ") + "\n.");
+        // } else {
+        //     setPasswordError('');
+        // }
+        setPasswordError(errors);
     };
 
 
@@ -150,7 +151,13 @@ export default function Login(){
                   onChange={handlePasswordChange}
                   required
                 />
-                {passwordError && <span className="text-sm text-red-500">{passwordError}</span>}
+                {passwordError.length > 0 && (
+                    <ul className="text-sm text-red-500 list-disc pl-4">
+                        {passwordError.map((err, idx) => (
+                        <li key={idx}>{err}</li>
+                        ))}
+                    </ul>
+                )}
               </div>
 
               <Button type="submit" className="w-full mt-4">
